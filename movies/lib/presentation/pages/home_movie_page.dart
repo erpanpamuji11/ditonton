@@ -35,74 +35,74 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Now Playing Movie',
-                style: kHeading6,
-              ),
-              BlocBuilder<NowPlayingMovieBloc, NowPlayingMovieState>(
-                  builder: (context, state) {
-                    if (state is NowPlayingMovieLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (state is NowPlayingMovieHasData) {
-                      final data = state.result;
-                      return MovieList(data);
-                    } else if (state is NowPlayingMovieError) {
-                      return const Text(
-                        'Failed to fetch data',
-                        key: Key('error_message'),
-                      );
-                    } else {
-                      return Container();
-                    }
-                  }),
-              _buildSubHeading(
-                title: 'Popular',
-                onTap: () =>
-                    Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
-              ),
-              BlocBuilder<PopularMoviesBloc, PopularMoviesState>(
-                  builder: (context, state) {
-                if (state is NowPlayingMovieLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is PopularMoviesHasData) {
-                  return MovieList(state.result);
-                } else if (state is PopularMoviesError) {
-                  return Text(state.message);
-                } else {
-                  return const Center();
-                }
-              }),
-              _buildSubHeading(
-                title: 'Top Rated',
-                onTap: () =>
-                    Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
-              ),
-              BlocBuilder<TopRatedMoviesBloc, TopRatedMoviesState>(
-                  builder: (context, state) {
-                if (state is TopRatedMoviesLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is TopRatedMoviesHasData) {
-                  return MovieList(state.result);
-                } else if (state is TopRatedMoviesError) {
-                  return Text(state.message);
-                } else {
-                  return const Center();
-                }
-              }),
-            ],
-          ),
+      padding: const EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Now Playing Movie',
+              style: kHeading6,
+            ),
+            BlocBuilder<NowPlayingMovieBloc, NowPlayingMovieState>(
+                builder: (context, state) {
+              if (state is NowPlayingMovieLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is NowPlayingMovieHasData) {
+                final data = state.result;
+                return MovieList(data);
+              } else if (state is NowPlayingMovieError) {
+                return const Text(
+                  'Failed to fetch data',
+                  key: Key('error_message'),
+                );
+              } else {
+                return Container();
+              }
+            }),
+            _buildSubHeading(
+              title: 'Popular',
+              onTap: () =>
+                  Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
+            ),
+            BlocBuilder<PopularMoviesBloc, PopularMoviesState>(
+                builder: (context, state) {
+              if (state is NowPlayingMovieLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is PopularMoviesHasData) {
+                return MovieList(state.result);
+              } else if (state is PopularMoviesError) {
+                return Text(state.message);
+              } else {
+                return const Center();
+              }
+            }),
+            _buildSubHeading(
+              title: 'Top Rated',
+              onTap: () =>
+                  Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
+            ),
+            BlocBuilder<TopRatedMoviesBloc, TopRatedMoviesState>(
+                builder: (context, state) {
+              if (state is TopRatedMoviesLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is TopRatedMoviesHasData) {
+                return MovieList(state.result);
+              } else if (state is TopRatedMoviesError) {
+                return Text(state.message);
+              } else {
+                return const Center();
+              }
+            }),
+          ],
         ),
+      ),
     );
   }
 
