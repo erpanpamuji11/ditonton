@@ -24,7 +24,7 @@ void main() {
       // act
       final result = await tvSeriesLocalDataSourceImpl.insertWatchlistTvSeries(testTvSeriesTable);
       // assert
-      expect(result, 'Added to Watchlist tvseries');
+      expect(result, 'Added to Watchlist');
     });
 
     test('should throw DatabaseException when insert tv_series to database is failed',
