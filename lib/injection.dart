@@ -8,7 +8,6 @@ import 'package:core/data/datasources/tv_series/tvseries_remote_data_source.dart
 import 'package:core/data/repositories/movie_repository_impl.dart';
 import 'package:core/data/repositories/tvseries_repository_impl.dart';
 import 'package:core/utils/ssl_helper.dart';
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
 import 'package:movies/domain/repositories/movie_repository.dart';
@@ -38,7 +37,6 @@ import 'package:tv_series/presentation/bloc/popular_tvseries/popular_tvseries_bl
 import 'package:tv_series/presentation/bloc/top_rated_tvseries/top_rated_tvseries_bloc.dart';
 import 'package:tv_series/presentation/bloc/detail_tvseries/tvseries_detail_bloc.dart';
 import 'package:tv_series/presentation/bloc/tvseries_recommendations/tvseries_recommendations_bloc.dart';
-import 'package:http/io_client.dart';
 import 'package:watchlist/domain/usecase/movies/get_watchlist_movies.dart';
 import 'package:watchlist/domain/usecase/movies/get_watchlist_status.dart';
 import 'package:watchlist/domain/usecase/movies/remove_watchlist.dart';
@@ -53,7 +51,6 @@ import 'package:watchlist/presentation/bloc/watchlist_tvseries/watchlist_tvserie
 final locator = GetIt.instance;
 
 Future<void> init() async {
-  IOClient ioClient = await SSLHelper.ioClient;
 
   // BLoC - Movies
   locator.registerFactory<NowPlayingMovieBloc>(
@@ -173,9 +170,9 @@ Future<void> init() async {
 
   // Datasource
   locator.registerLazySingleton<MovieRemoteDataSource>(
-      () => MovieRemoteDataSourceImpl(ioClient: locator()));
+      () => MovieRemoteDataSourceImpl(client: locator()));
   locator.registerLazySingleton<TvSeriesRemoteDataSource>(
-      () => TvSeriesRemoteDataSourceImpl(ioClient: locator()));
+      () => TvSeriesRemoteDataSourceImpl(client: locator()));
   locator.registerLazySingleton<MovieLocalDataSource>(
       () => MovieLocalDataSourceImpl(databaseHelper: locator()));
   locator.registerLazySingleton<TvSeriesLocalDataSource>(
@@ -187,6 +184,5 @@ Future<void> init() async {
       () => DatabaseHelperTvSeries());
 
   // External
-  locator.registerLazySingleton(() => http.Client());
-  locator.registerLazySingleton(() => ioClient);
+  locator.registerLazySingleton(() => SslPinning.client);
 }
