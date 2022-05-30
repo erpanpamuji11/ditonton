@@ -3,16 +3,15 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
-class SslPinning {
-  static Future<http.Client> get _instance async =>
+class SSLHelper {
+  static Future<IOClient> get _instance async =>
       _clientInstance ??= await createLEClient();
 
-  static http.Client? _clientInstance;
+  static IOClient? _clientInstance;
 
-  static http.Client get client => _clientInstance ?? http.Client();
+  static IOClient get client => _clientInstance ?? IOClient();
 
   static Future<void> init() async {
     _clientInstance = await _instance;
@@ -53,7 +52,7 @@ class SslPinning {
     return httpClient;
   }
 
-  static Future<http.Client> createLEClient({bool isTestMode = false}) async {
+  static Future<IOClient> createLEClient({bool isTestMode = false}) async {
     IOClient client = IOClient(await customHttpClient(isTestMode: isTestMode));
     return client;
   }

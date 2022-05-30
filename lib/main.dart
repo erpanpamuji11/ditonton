@@ -37,7 +37,7 @@ import 'package:watchlist/presentation/bloc/watchlist_tvseries/watchlist_tvserie
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await SslPinning.init();
+  await SSLHelper.init();
   await di.init();
   runApp(const MyApp());
 }

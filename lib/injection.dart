@@ -4,12 +4,12 @@ import 'package:core/data/datasources/movies/movie_local_data_source.dart';
 import 'package:core/data/datasources/movies/movie_remote_data_source.dart';
 import 'package:core/data/datasources/tv_series/tvseries_local_data_source.dart';
 import 'package:core/data/datasources/tv_series/tvseries_remote_data_source.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:core/data/repositories/movie_repository_impl.dart';
 import 'package:core/data/repositories/tvseries_repository_impl.dart';
 import 'package:core/utils/ssl_helper.dart';
 import 'package:get_it/get_it.dart';
-
+import 'package:http/io_client.dart';
 import 'package:movies/domain/repositories/movie_repository.dart';
 import 'package:movies/domain/usecase/get_movie_detail.dart';
 import 'package:movies/domain/usecase/get_movie_recommendations.dart';
@@ -51,7 +51,6 @@ import 'package:watchlist/presentation/bloc/watchlist_tvseries/watchlist_tvserie
 final locator = GetIt.instance;
 
 Future<void> init() async {
-
   // BLoC - Movies
   locator.registerFactory<NowPlayingMovieBloc>(
     () => NowPlayingMovieBloc(
@@ -170,9 +169,9 @@ Future<void> init() async {
 
   // Datasource
   locator.registerLazySingleton<MovieRemoteDataSource>(
-      () => MovieRemoteDataSourceImpl(client: locator()));
+      () => MovieRemoteDataSourceImpl(ioClient: locator()));
   locator.registerLazySingleton<TvSeriesRemoteDataSource>(
-      () => TvSeriesRemoteDataSourceImpl(client: locator()));
+      () => TvSeriesRemoteDataSourceImpl(ioClient: locator()));
   locator.registerLazySingleton<MovieLocalDataSource>(
       () => MovieLocalDataSourceImpl(databaseHelper: locator()));
   locator.registerLazySingleton<TvSeriesLocalDataSource>(
@@ -184,5 +183,6 @@ Future<void> init() async {
       () => DatabaseHelperTvSeries());
 
   // External
-  locator.registerLazySingleton(() => SslPinning.client);
+  locator.registerLazySingleton(() => http.Client);
+  locator.registerLazySingleton(() => SSLHelper.client);
 }
