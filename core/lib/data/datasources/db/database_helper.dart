@@ -21,7 +21,7 @@ class DatabaseHelper {
 
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();
-    final databasePath = '$path/ditontonMovies.db';
+    final databasePath = '$path/ditonton-movies.db';
 
     var db = await openDatabase(
       databasePath,
@@ -33,8 +33,7 @@ class DatabaseHelper {
   }
 
   void _onCreate(Database db, int version) async {
-    await db.execute(
-        '''
+    await db.execute('''
       CREATE TABLE  $_tblWatchlist (
         id INTEGER PRIMARY KEY,
         title TEXT,

@@ -123,12 +123,12 @@ class _DetailContentMoviesState extends State<DetailContentMovies> {
                             ElevatedButton(
                               onPressed: () async {
                                 if (!widget.isAddedWatchlist) {
-                                  context.read<WatchlistMoviesBloc>().add(
-                                      AddMovieToWatchlist(widget.movie));
+                                  context
+                                      .read<WatchlistMoviesBloc>()
+                                      .add(AddMovieToWatchlist(widget.movie));
                                 } else {
                                   context.read<WatchlistMoviesBloc>().add(
-                                      RemoveMovieFromWatchlist(
-                                          widget.movie));
+                                      RemoveMovieFromWatchlist(widget.movie));
                                 }
 
                                 String message = "";
@@ -139,7 +139,7 @@ class _DetailContentMoviesState extends State<DetailContentMovies> {
 
                                 final state =
                                     BlocProvider.of<WatchlistMoviesBloc>(
-                                        context)
+                                            context)
                                         .state;
 
                                 if (state is WatchlistMoviesIsAdded) {
@@ -156,10 +156,10 @@ class _DetailContentMoviesState extends State<DetailContentMovies> {
                                     message == watchlistRemoveSuccessMessage) {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
-                                      content: Text(message),
-                                      duration: const Duration(
-                                        milliseconds: 1000,
-                                      )));
+                                          content: Text(message),
+                                          duration: const Duration(
+                                            milliseconds: 1000,
+                                          )));
                                 } else {
                                   showDialog(
                                       context: context,
@@ -171,7 +171,7 @@ class _DetailContentMoviesState extends State<DetailContentMovies> {
                                 }
                                 setState(() {
                                   widget.isAddedWatchlist =
-                                  !widget.isAddedWatchlist;
+                                      !widget.isAddedWatchlist;
                                 });
                               },
                               child: Row(

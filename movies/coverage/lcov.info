@@ -370,9 +370,8 @@ DA:121,1
 DA:123,1
 DA:124,0
 DA:125,0
-DA:126,0
 DA:127,0
-DA:129,0
+DA:128,0
 DA:130,0
 DA:131,0
 DA:141,0
@@ -443,7 +442,7 @@ DA:307,1
 DA:310,1
 DA:312,0
 DA:313,0
-LF:124
+LF:123
 LH:89
 end_of_record
 SF:lib\presentation\pages\popular_movies_page.dart

@@ -17,7 +17,7 @@ class SearchPageTvSeries extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
-            onSubmitted: (query) {
+            onChanged: (query) {
               context
                   .read<TvseriesSearchBloc>()
                   .add(TvSeriesOnQueryChanged(query));
